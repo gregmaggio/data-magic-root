@@ -1,0 +1,41 @@
+<div *ngIf="apiLoaded | async">
+    <div style="height:5px;"></div>
+    <label for="basin">Basin:</label>&nbsp;
+    <select id="basin" (change)="basinChange($event)">
+        <option *ngFor="let basin of basins" [value]="basin.name">{{basin.description}}</option>
+    </select>
+    <label for="year">Year:</label>&nbsp;
+    <select id="year" (change)="yearChange($event)">
+        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+    </select>
+    <label for="storm">Storm:</label>&nbsp;
+    <select id="storm" (change)="stormChange($event)">
+        <option *ngFor="let storm of storms" [value]="storm.stormNo">{{storm.stormName}}</option>
+    </select>
+    <div style="height:5px;"></div>
+    <google-map 
+        height="500px"
+        width="100%"
+        [zoom]="zoom"
+        [center]="center"
+        [options]="options"
+        (tilesloaded)="tilesloaded($event)">
+        <map-marker
+            *ngFor="let marker of markers"
+            [position]="marker.position"
+            [label]="marker.label"
+            [title]="marker.title"
+            [options]="marker.options"
+            (mapClick)="openInfo(marker, marker.info)"
+            >
+        </map-marker>
+        <map-info-window>
+            <div [innerHTML]="infoContent"></div>
+        </map-info-window>
+    </google-map>
+</div>
+
+<div id="spinner" class="center">
+    <mat-progress-spinner *ngIf="isLoading()" mode="indeterminate" diameter="150">
+    </mat-progress-spinner>
+</div>

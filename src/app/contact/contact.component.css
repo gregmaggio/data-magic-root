@@ -1,0 +1,11 @@
+.req {
+    color: red;
+    font-weight:bold;
+}
+.err {
+    color: red;
+    font-weight:bold;
+}
+label {
+    font-weight:bold;
+}

@@ -1,0 +1,48 @@
+<h1>DataMagic</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <h2>Hurricane Tracker</h2>
+            <p>Hurricane storm tracks</p>
+            <p><button type="button" class="btn btn-primary" (click)="hurricaneTracksClick();">View details &raquo;</button></p>
+        </div>
+        <div class="col-sm">
+            <h2>Hurricane API</h2>
+            <p>API used by the hurricane tracker</p>
+            <p><a class="btn btn-default" href="https://datamagic.ca/Hurricane/" role="button" target="_blank">View details &raquo;</a></p>
+            <p><button type="button" class="btn btn-primary" (click)="hurricaneAPIClick();">View details &raquo;</button></p>
+        </div>
+        <div class="col-sm">
+            <h2>Station API</h2>
+            <p>API for retrieving Weather Station by location.</p>
+            <p><button type="button" class="btn btn-primary" (click)="stationAPIClick();">View details &raquo;</button></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <h2>Weather Forecast Office API</h2>
+            <p>API for retrieving WFO by location.</p>
+            <p><button type="button" class="btn btn-primary" (click)="WFOAPIClick();">View details &raquo;</button></p>
+        </div>
+        <div class="col-sm">
+            <h2>TimeZone API</h2>
+            <p>API used to retrieve TimeZone data for a location.</p>
+            <p><button type="button" class="btn btn-primary" (click)="TimeZoneAPIClick();">View details &raquo;</button></p>
+        </div>
+        <div class="col-sm">
+            <h2>Accounting API</h2>
+            <p>API used to retrieve usage data for the NOAAWeatherWidget.</p>
+            <p><button type="button" class="btn btn-primary" (click)="AccountingAPIClick();">View details &raquo;</button></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <h2>Source Code on github</h2>
+            <p><button type="button" class="btn btn-primary" (click)="SourceCodeClick();">View details &raquo;</button></p>
+        </div>
+    </div>
+</div>
+<div id="spinner" class="center">
+    <mat-progress-spinner *ngIf="isLoading()" mode="indeterminate" diameter="150">
+    </mat-progress-spinner>
+</div>
