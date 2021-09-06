@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,14 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { AboutComponent } from './about/about.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HomeComponent } from './home/home.component';
+import { SecureService } from './service/secure.service';
+
+export function initApp(http: HttpClient) {
+  return () => {
+    var service: SecureService = new SecureService(http);
+    return service.loadSecureConfig();
+  };
+}
 
 @NgModule({
   declarations: [
@@ -31,7 +39,13 @@ import { HomeComponent } from './home/home.component';
     MatProgressSpinnerModule
   ],
   providers: [
-    HttpClient
+    HttpClient,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      multi: true,
+      deps: [HttpClient, SecureService]
+    }
   ],
   bootstrap: [AppComponent]
 })

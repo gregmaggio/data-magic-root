@@ -6,6 +6,7 @@ import { Observable, of } from "rxjs";
 import { catchError, map } from 'rxjs/operators';
 import { BaseComponent } from "../base.component";
 import { Basin, HurricaneService, Storm, StormTrack } from "../service/hurricane.service";
+import { secureConfig } from "../service/secure.service";
 
 const INITIAL_VIEW_STATE = { latitude: 37.0204489, longitude: -109.4589183, zoom: 4.5, pitch: 0 };
 
@@ -50,7 +51,7 @@ const INITIAL_VIEW_STATE = { latitude: 37.0204489, longitude: -109.4589183, zoom
             }
           });
         this.service = new HurricaneService(http);
-        this.apiLoaded = http.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyCAn9iskCTRkOTqdvvyut9zl9CIq0MpQ8M', 'callback')
+        this.apiLoaded = http.jsonp('https://maps.googleapis.com/maps/api/js?key=' + secureConfig.googleMapsKey, 'callback')
             .pipe(
                 map(() => true),
                 catchError(() => of(false)),
@@ -108,29 +109,17 @@ const INITIAL_VIEW_STATE = { latitude: 37.0204489, longitude: -109.4589183, zoom
             (stormTracks:StormTrack[]) => {
                 this.setLoading(false);
                 this.stormTracks = stormTracks;
-                var minLat:number = Number.NaN;
-                var minLon:number = Number.NaN;
-                var maxLat:number = Number.NaN;
-                var maxLon:number = Number.NaN;
+                var centerLat:number = 0;
+                var centerLon:number = 0;
                 for (var ii:number = 0; ii < stormTracks.length; ii++) {
                     this.addMarker(stormTracks[ii]);
-                    if (Number.isNaN(minLat) || (minLat > stormTracks[ii].latitude)) {
-                        minLat = stormTracks[ii].latitude;
-                    }
-                    if (Number.isNaN(minLon) || (minLon > stormTracks[ii].longitude)) {
-                        minLon = stormTracks[ii].longitude;
-                    }
-                    if (Number.isNaN(maxLat) || (maxLat < stormTracks[ii].latitude)) {
-                        maxLat = stormTracks[ii].latitude;
-                    }
-                    if (Number.isNaN(maxLon) || (maxLon < stormTracks[ii].longitude)) {
-                        maxLon = stormTracks[ii].longitude;
-                    }
+                    centerLat += stormTracks[ii].latitude;
+                    centerLon += stormTracks[ii].longitude;
                 }
-                var sw: google.maps.LatLng = new google.maps.LatLng(minLat, minLon);
-                var ne: google.maps.LatLng = new google.maps.LatLng(maxLat, maxLon);
-                var bounds:google.maps.LatLngBounds = new google.maps.LatLngBounds(sw, ne);
-                this.map.panToBounds(bounds);
+                centerLat /= stormTracks.length;
+                centerLon /= stormTracks.length;
+                var center: google.maps.LatLng = new google.maps.LatLng(centerLat, centerLon);
+                this.map.panTo(center)
             }
         );
     }
