@@ -12,11 +12,22 @@ import { AboutComponent } from './about/about.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HomeComponent } from './home/home.component';
 import { SecureService } from './service/secure.service';
+import { CacheInterceptor } from './cacheinterceptor.component';
+import { ConfigService } from './service/config.service';
+import { ForecastComponent } from './forecast/forecast.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function initApp(http: HttpClient) {
-  return () => {
-    var service: SecureService = new SecureService(http);
-    return service.loadSecureConfig();
+  return async () => {
+    var configService: ConfigService = new ConfigService(http);
+    var appConfigLoaded:boolean = await configService.loadAppConfig();
+    var secureService: SecureService = new SecureService(http);
+    var secureConfigLoaded:boolean = await secureService.loadSecureConfig();
+    return appConfigLoaded && secureConfigLoaded;
   };
 }
 
@@ -27,7 +38,8 @@ export function initApp(http: HttpClient) {
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    HurricaneTracksComponent
+    HurricaneTracksComponent,
+    ForecastComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +48,12 @@ export function initApp(http: HttpClient) {
     HttpClientJsonpModule,
     GoogleMapsModule,
     RecaptchaModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [
     HttpClient,
@@ -45,6 +62,11 @@ export function initApp(http: HttpClient) {
       useFactory: initApp,
       multi: true,
       deps: [HttpClient, SecureService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CacheInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

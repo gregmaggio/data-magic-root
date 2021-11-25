@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { DeviceDetectorService } from "ngx-device-detector";
 import { BaseComponent } from "../base.component";
 
@@ -37,7 +37,19 @@ export class HomeComponent extends BaseComponent {
     window.location.href = "https://datamagic.ca/Accounting/";
   }
 
+  GooglePlacesAPIClick() {
+    window.location.href = "https://datamagic.ca/GooglePlaces/";
+  }
+
   SourceCodeClick() {
     window.location.href = "https://github.com/gregmaggio";
+  }
+
+  forecastClick() {
+    window.location.href = "forecast";
+  }
+
+  RadarAPIClick() {
+    window.location.href = "https://radar-mjm5ilkcrq-ue.a.run.app/";
   }
 }

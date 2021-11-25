@@ -1,0 +1,65 @@
+<br />
+<div>
+    <form autocomplete="off">
+        <mat-form-field>
+            <input matInput id="search" placeholder="search" aria-label="Search" [matAutocomplete]="auto" (click)="searchClick($event)" />
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='searchOptionSelected($event.option.value)' [displayWith]="displaySearchOption">
+                <mat-option *ngFor="let prediction of predictions" [value]="prediction">
+                    {{prediction.description}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+</div>
+<br />
+
+<div class="header">
+    <table style="width:100%">
+        <tr>
+            <td><a href="" class="header" (click)="headerClick('observation');">Observation</a></td>
+            <td><a href="" class="header" (click)="headerClick('forecast');">Forecast</a></td>
+            <td><a href="" class="header" (click)="headerClick('discussion');">Discussion</a></td>
+        </tr>
+    </table>
+</div>
+
+<div id="observationDiv" class="invisible">
+    <div id="locationDiv" class="invisible">
+        <span id="location"></span>
+    </div>
+    <div id="conditionsIconDiv" class="invisible">
+        <img id="conditionsIcon" src="./assets/_blank.png" alt="" />
+    </div>
+    <div id="temperatureDiv" class="invisible">
+        <label for="temperature">Temperature</label>&nbsp;<span id="temperature"></span>
+    </div>
+    <div id="dewPointDiv" class="invisible">
+        <label for="dewPoint">Dew Point</label>&nbsp;<span id="dewPoint"></span>
+    </div>
+    <div id="humidityDiv" class="invisible">
+        <label for="humidity">Humidity</label>&nbsp;<span id="humidity"></span>
+    </div>
+    <div id="pressureDiv" class="invisible">
+        <label for="pressure">Pressure</label>&nbsp;<span id="pressure"></span>
+    </div>
+    <div id="windDiv" class="invisible">
+        <label for="wind">Wind</label>&nbsp;<span id="wind"></span>
+    </div>
+    <div id="visibilityDiv" class="invisible">
+        <label for="visibility">Visibility</label>&nbsp;<span id="visibility"></span>
+    </div>
+</div>
+
+<div id="forecastDiv" class="invisible">
+    <div id="forecastLocationDiv" class="invisible">
+        <span id="forecastLocation"></span>
+    </div>
+    <div>
+        <table id="forecastTable" style="width:100%" class="invisible">
+        </table>
+    </div>
+</div>
+
+<div id="discussionDiv" class="invisible">
+
+</div>
