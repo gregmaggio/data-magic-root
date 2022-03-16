@@ -45,10 +45,6 @@ export class HomeComponent extends BaseComponent {
     window.location.href = "https://github.com/gregmaggio";
   }
 
-  forecastClick() {
-    window.location.href = "forecast";
-  }
-
   RadarAPIClick() {
     window.location.href = "https://radar-mjm5ilkcrq-ue.a.run.app/";
   }

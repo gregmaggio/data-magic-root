@@ -14,12 +14,12 @@ import { HomeComponent } from './home/home.component';
 import { SecureService } from './service/secure.service';
 import { CacheInterceptor } from './cacheinterceptor.component';
 import { ConfigService } from './service/config.service';
-import { ForecastComponent } from './forecast/forecast.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AndroidPrivacyPolicyComponent } from './androidprivacypolicy/androidprivacypolicy.component';
 
 export function initApp(http: HttpClient) {
   return async () => {
@@ -39,7 +39,7 @@ export function initApp(http: HttpClient) {
     AboutComponent,
     ContactComponent,
     HurricaneTracksComponent,
-    ForecastComponent
+    AndroidPrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,

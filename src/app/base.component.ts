@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { OnInit, HostListener, Component } from '@angular/core';
+import { appConfig } from './service/config.service';
 
 @Component({ template: '' })
 export class BaseComponent implements OnInit {
@@ -17,6 +18,11 @@ export class BaseComponent implements OnInit {
         this.mobile = this.deviceService.isMobile();
         this.tablet = this.deviceService.isTablet();
         this.desktop = this.deviceService.isDesktop();
+        if (appConfig.rootUrl.indexOf('https://') > -1) {
+            if (window.location.href.indexOf('http://') >-1) {
+                window.location.href = window.location.href.replace('http://', 'https://');
+            }
+        }
     }
 
     @HostListener('window:scroll', ['$event'])
