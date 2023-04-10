@@ -46,6 +46,10 @@ export class HomeComponent extends BaseComponent {
   }
 
   RadarAPIClick() {
-    window.location.href = "https://radar-mjm5ilkcrq-ue.a.run.app/";
+    window.location.href = "https://radar-dot-api-project-378578942759.ue.r.appspot.com/";
+  }
+
+  NOAAWeatherUsageClick() {
+    window.location.href = "https://datamagic.ca/accounting-dashboard/";
   }
 }
